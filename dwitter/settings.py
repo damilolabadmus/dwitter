@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import dj_database_url
+import django_heroku
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,12 +81,12 @@ WSGI_APPLICATION = 'dwitter.wsgi.application'
 
 DATABASES = {
     'default': {
-         'ENGINE': config('DB_ENGINE'),
-         'NAME': config('DB_NAME'),
-         'USER': config('DB_USER'),
-         'PASSWORD': config('DB_PASSWORD'),
-         'HOST': config('DB_HOST'),
-         'PORT': config('DB_PORT', cast=int)
+         # 'ENGINE': config('DB_ENGINE'),
+         # 'NAME': config('DB_NAME'),
+         # 'USER': config('DB_USER'),
+         # 'PASSWORD': config('DB_PASSWORD'),
+         # 'HOST': config('DB_HOST'),
+         # 'PORT': config('DB_PORT', cast=int)
      }
 }
 
@@ -126,8 +128,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = Path.joinpath(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATABASES = {
+    'default': dj_database_url.parse(config("DATABASE_URL"))
+}
+django_heroku.settings(locals())
