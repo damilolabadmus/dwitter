@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+    <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ tweet_form }}
+            <button type="submit">Submit</button>
+    </form>
+
+    {% for tweet in all_tweets %}
+        <p>{{ tweet.content }}</p>
+
+    {% endfor %}
+</body>
+</html>
