@@ -3,18 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        main {
+            margin: 0 auto;
+            width: 40%;
+        }
+
+        label {
+            display: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 1rem;
+            font-size: 1rem;
+            color: indianred;
+        }
+
+        textarea {
+            width: 100%;
+            border-radius: 1rem;
+        }
+
+        .tweets {
+            border: 1px solid #000;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .tweet {
+            margin-bottom: 2.5rem;
+            border-left: 0.5rem solid #000;
+            padding-left: 0.5rem;
+        }
+
+        .tweet_timestamp {
+            font-size: 0.75rem;
+        }
+    </style>
 </head>
 <body>
+    <main>
+        <header>
+            <h1>Dwitter</h1>
+        </header>
 
-    <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ tweet_form }}
-            <button type="submit">Submit</button>
-    </form>
+        <p>Dweet Here: </p>
+        <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ tweet_form }}
+                <button type="submit">Submit</button>
+        </form>
 
-    {% for tweet in all_tweets %}
-        <p>{{ tweet.content }}</p>
+        <h2>Dami's Dwitter</h2>
+        <div class="tweets">
+            {% for tweet in all_tweets %}
+                <div class="tweet">
+                    <p>{{ tweet.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
 
-    {% endfor %}
 </body>
 </html>
